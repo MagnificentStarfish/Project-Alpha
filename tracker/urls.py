@@ -27,4 +27,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("projects/", include("projects.urls")),
     path("", list_views, name="home"),
+    path("accounts/", include("accounts.urls"))
 ]

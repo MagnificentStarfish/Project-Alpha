@@ -10,7 +10,7 @@
         <main>
             <div>
                 <h1>My Projects</h1>
-                <p>You are not assigned to any projects</p>
+                {% if list_view|length is 0 %}<p>You are not assigned to any projects</p>{% endif %}
                 <table>
                     <thead>
                         <tr>
@@ -18,14 +18,18 @@
                             <th>Number of tasks</th>
                         </tr>
                     </thead>
-                    {% for project in project_list %}
-                        <tbody>
-                            <tr>
-                                <td>{{ project.name }}</td>
-                                <td>{{ project.projects.all }}</td>
+                    <tbody>
+                        <tr>
+                            {% for project in list_view %}
+                                <td>
+                                    <a href="{% url "show_project" project.id %}">{{ project.name }}</a>
+                                </td>
+                                <td>{{ project.tasks.all|length }}</td>
+                                {% comment %} <td>{{ project.description }}</td>
+                                <td>{{ project.owner }}</td> {% endcomment %}
                             </tr>
-                        </tbody>
-                    {% endfor %}
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </main>

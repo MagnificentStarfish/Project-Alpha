@@ -6,5 +6,5 @@ urlpatterns = [
     path("login/", user_login, name="login"),
     path("projects/", include("projects.urls")),
     path("logout/", user_logout, name="logout"),
-    path("signup/", signup, name="signup")
+    path("signup/", signup, name="signup"),
 ]

@@ -7,6 +7,30 @@
         <title>Document</title>
     </head>
     <body>
+        <header>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url "show_my_tasks" %}">My tasks</a>
+                        </li>
+                        <li>
+                            <a href="{% url "list_projects" %}">My projects</a>
+                        </li>
+                        <li>
+                            <a href="{% url "logout" %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url "login" %}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{% url "signup" %}">Signup</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
         <main>
             <div>
                 <h1>{{ show_project.name }}</h1>
@@ -25,13 +49,13 @@
                     </thead>
                     <tbody>
                         {% if show_project.tasks.all|length is 0 %}<p>This project has no tasks</p>{% endif %}
-                        <tr>
-                            {% for task in show_project.tasks.all %}
+                        {% for task in show_project.tasks.all %}
+                            <tr>
                                 <td>{{ task.name }}</td>
-                                <td>{{ tasks.assignee }}</td>
+                                <td>{{ task.assignee }}</td>
                                 <td>{{ task.start_date }}</td>
                                 <td>{{ task.due_date }}</td>
-                                <td>{{ tasks.is_completed |yesno }}</td>
+                                <td>{{ task.is_completed |yesno }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
